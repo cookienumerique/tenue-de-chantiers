@@ -46,7 +46,7 @@ module.exports = {
     {
       files: [
         '*.test.{ts,tsx}',
-        'src/testing/**/*.{ts,tsx}',
+        'pages/testing/**/*.{ts,tsx}',
       ],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
