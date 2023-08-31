@@ -1,8 +1,6 @@
 import { Stack } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
-import type { NextPageWithLayout } from './_app';
-
 const Page: NextPageWithLayout = () => {
   return <p>hello world</p>;
 };
