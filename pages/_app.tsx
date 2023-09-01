@@ -1,10 +1,13 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 
 import { AppProvider } from '@/providers/app';
 
-type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<
+  P = NonNullable<unknown>,
+  IP = P,
+> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
