@@ -1,11 +1,10 @@
 import type { ReactElement } from 'react';
 
-import Layout from '../components/layout';
-
-import { NextPageWithLayout } from './_app';
+import Layout from '@/components/layout';
+import { NextPageWithLayout } from '@/pages/_app';
 
 const Page: NextPageWithLayout = () => {
-  return <p>hello world</p>;
+  return <p>Page contact</p>;
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {
