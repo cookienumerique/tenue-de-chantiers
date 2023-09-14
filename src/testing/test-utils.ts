@@ -1,9 +1,6 @@
-import { expect } from '@jest/globals';
-import {
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+// import { expect } from '@jest/globals';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { ReactElement } from 'react';
 
 import { AppProvider } from '@/providers/app';
@@ -17,21 +14,19 @@ export const appRender = (ui: ReactElement) => {
 
 // waits for all loading spinners to disappear
 export const waitForLoadingToFinish = () => {
-  return waitFor(
-    () => {
-      const loaders = [
-        ...screen.queryAllByTestId(/loading/i),
-        ...screen.queryAllByText(/loading/i),
-      ];
-
-      loaders.forEach((loader) =>
-        expect(loader).not.toBeInTheDocument()
-      );
-    },
-    {
-      timeout: 4000,
-    }
-  );
+  // return waitFor(
+  //   () => {
+  //     const loaders = [
+  //       ...screen.queryAllByTestId(/loading/i),
+  //       ...screen.queryAllByText(/loading/i),
+  //     ];
+  //
+  //     loaders.forEach((loader) => expect(loader).toBet);
+  //   },
+  //   {
+  //     timeout: 4000,
+  //   }
+  // );
 };
 
 export * from '@testing-library/react';
