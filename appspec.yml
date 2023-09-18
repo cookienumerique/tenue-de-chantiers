@@ -3,6 +3,8 @@ os: linux
 files:
   - source: "/"
     destination: "/var/www/cookie-numerique"
+    overwrite: true
+file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
     - location: "ci-cd/before-install.sh"
