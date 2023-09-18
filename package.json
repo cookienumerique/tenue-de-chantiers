@@ -18,7 +18,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "pm2:start": "pm2 start npm --name cookie_numerique -- start"
+    "pm2:start": "pm2 start yarn --name cookie_numerique -- start"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.0",

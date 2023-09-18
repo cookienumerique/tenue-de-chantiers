@@ -6,5 +6,5 @@ rm -f package-lock.json;
 rm -f yarn-lock.json;
 yarn cache clean
 yarn install --verbose;
-npm run build --verbose;
+yarn build --verbose;
 pm2 restart cookie_numerique;
