@@ -1,10 +1,10 @@
 #!/bin/bash
 cd /var/www/cookie-numerique || exit;
 git pull origin main;
-rm -rf nodes_modules;
+rm -rf node_modules;
 rm -f package-lock.json;
 rm -f yarn-lock.json;
-npm cache clear --force;
-npm install --loglevel verbose;
+yarn cache clean
+yarn install --verbose;
 npm run build --verbose;
-pm2 restart cookie_numerique
+pm2 restart cookie_numerique;
