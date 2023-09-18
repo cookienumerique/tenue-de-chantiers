@@ -9,7 +9,7 @@ import { NextPageWithLayout } from './_app';
 const HomePage: NextPageWithLayout = (): ReactElement => {
   return (
     <Stack>
-      <h1>Page Accueil testedswxc!</h1>
+      <h1>Page Accueil testeds! new</h1>
       <NextLink href="/contact">Go page contact</NextLink>
     </Stack>
   );
