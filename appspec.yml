@@ -1,7 +1,15 @@
 version: 0.0
 os: linux
 hooks:
-  ApplicationStart:
-    - location: ./deploy.sh
+  BeforeInstall:
+    - location: ci-cd/before_install.sh
+      timeout: 300
+      runas: ubuntu
+  Install:
+    - location: ci-cd/install.sh
+      timeout: 300
+      runas: ubuntu
+  AfterInstall:
+    - location: ci-cd/after_install.sh
       timeout: 300
       runas: ubuntu
