@@ -5,7 +5,7 @@ files:
     destination: "/var/www/cookie-numerique"
 hooks:
   BeforeInstall:
-    - location: "ci-cd/before_install.sh"
+    - location: "ci-cd/before-install.sh"
       timeout: 10
       runas: ubuntu
   Install:
@@ -13,6 +13,6 @@ hooks:
       timeout: 60
       runas: ubuntu
   AfterInstall:
-    - location: "ci-cd/after_install.sh"
+    - location: "ci-cd/after-install.sh"
       timeout: 10
       runas: ubuntu
