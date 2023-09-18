@@ -6,7 +6,7 @@ files:
 hooks:
   BeforeInstall:
     - location: "ci-cd/before-install.sh"
-      timeout: 60
+      timeout: 3000
       runas: ubuntu
   Install:
     - location: "ci-cd/install.sh"
