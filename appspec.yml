@@ -1,15 +1,18 @@
 version: 0.0
 os: linux
+files:
+  - source: "."
+    destination: "/var/www/cookie-numerique"
 hooks:
   BeforeInstall:
-    - location: ci-cd/before_install.sh
+    - location: "ci-cd/before_install.sh"
       timeout: 300
       runas: ubuntu
   Install:
-    - location: ci-cd/install.sh
+    - location: "ci-cd/install.sh"
       timeout: 300
       runas: ubuntu
   AfterInstall:
-    - location: ci-cd/after_install.sh
+    - location: "ci-cd/after_install.sh"
       timeout: 300
       runas: ubuntu
