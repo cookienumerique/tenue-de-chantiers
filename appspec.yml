@@ -8,7 +8,7 @@ file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
     - location: "ci-cd/before-install.sh"
-      timeout: 3000
+      timeout: 300
       runas: ubuntu
   Install:
     - location: "ci-cd/install.sh"
@@ -16,5 +16,5 @@ hooks:
       runas: ubuntu
   AfterInstall:
     - location: "ci-cd/after-install.sh"
-      timeout: 10
+      timeout: 60
       runas: ubuntu
