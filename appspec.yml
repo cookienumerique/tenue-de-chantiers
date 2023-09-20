@@ -1,20 +1,31 @@
+# This is an appspec.yml template file for use with an EC2/On-Premises deployment in CodeDeploy.
+
 version: 0.0
 os: linux
+
 files:
-  - source: "/"
-    destination: "/var/www/cookie-numerique"
-    overwrite: true
-file_exists_behavior: OVERWRITE
+  - source: /
+    destination: /var/www/cookie-numerique
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
 hooks:
+
   BeforeInstall:
-    - location: "ci-cd/before-install.sh"
-      timeout: 3000
-      runas: ubuntu
-  Install:
-    - location: "ci-cd/install.sh"
-      timeout: 60
-      runas: ubuntu
+    - location: scripts/before_install.sh
+      timeout: 300
+      runas: root
+  
   AfterInstall:
-    - location: "ci-cd/after-install.sh"
-      timeout: 10
-      runas: ubuntu
+    - location: scripts/after_install.sh
+      timeout: 300
+      runas: root
+
+  ApplicationStart:
+    - location: scripts/app_start.sh
+      timeout: 300
+      runas: root
