@@ -1,7 +1,4 @@
 #!/bin/bash
-cd /home/ec2-user/server/src
-npm start
-pm2 start npm --name "cookie_numerique" -- start
-pm2 startup
-pm2 save
-pm2 restart all
+cd /var/www/cookie-numerique || exit
+npm install
+npm install pm2 -g

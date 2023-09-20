@@ -1,5 +1,7 @@
 #!/bin/bash
 cd /var/www/cookie-numerique || exit
-npm install
-npm install pm2 -g
-pm2 restart cookie_numerique
+npm start
+pm2 start npm --name "cookie_numerique" -- start
+pm2 startup
+pm2 save
+pm2 restart all
