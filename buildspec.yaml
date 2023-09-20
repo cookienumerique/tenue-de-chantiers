@@ -8,12 +8,12 @@ phases:
   pre_build:
     commands:
       #installs dependencies into the node_modules/ directory
-      - yarn install --verbose;
+      - npm install --verbose;
   build:
     commands:
       - echo Build started on `date`
       - echo Compiling
-      - yarn build --verbose;
+      - npm run build --verbose;
   post_build:
     commands:
       - echo Build completed on `date`
