@@ -6,7 +6,8 @@ os: linux
 files:
   - source: /
     destination: /var/www/cookie-numerique
-
+    overwrite: true
+file_exists_behavior: OVERWRITE
 permissions:
   - object: /
     pattern: "**"
@@ -14,7 +15,6 @@ permissions:
     group: ubuntu
 
 hooks:
-
   BeforeInstall:
     - location: scripts/before_install.sh
       timeout: 300
