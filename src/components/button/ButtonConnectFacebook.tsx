@@ -4,10 +4,10 @@ import { FaFacebookF } from 'react-icons/fa';
 import Button, {
   ButtonProps,
 } from '@/components/button/Button';
-export type ButtonCoonectFacebookProps = ButtonProps;
+export type ButtonConnectFacebookProps = ButtonProps;
 
 function ButtonConnectFacebook(
-  props: ButtonCoonectFacebookProps
+  props: ButtonConnectFacebookProps
 ): ReactElement {
   return (
     <Button

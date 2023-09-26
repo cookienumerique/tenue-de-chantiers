@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@/components/button/Button';
 import ButtonConnectGrouped from '@/components/button/ButtonConnectGrouped';
 
 import ButtonConnect from './ButtonConnect';
@@ -8,7 +7,7 @@ import ButtonConnect from './ButtonConnect';
 const meta = {
   title: 'CookUI/ButtonConnect',
   component: ButtonConnect,
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof ButtonConnect>;
 
 export default meta;
 

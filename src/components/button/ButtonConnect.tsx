@@ -4,18 +4,13 @@ import ButtonConnectFacebook from '@/components/button/ButtonConnectFacebook';
 import ButtonConnectGoogle from '@/components/button/ButtonConnectGoogle';
 
 export type ButtonConnectProps = {
-  domain:
-    | 'google'
-    | 'facebook'
-    | 'classic'
-    | 'login'
-    | 'signIn';
+  domain?: 'google' | 'facebook';
 };
 
 export default function ButtonConnect(
   props: ButtonConnectProps
 ): ReactElement {
-  const { domain = 'classic' } = props;
+  const { domain = 'facebook' } = props;
 
   if (domain === 'facebook') {
     return <ButtonConnectFacebook />;
