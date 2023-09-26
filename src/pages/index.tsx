@@ -8,7 +8,7 @@ import { NextPageWithLayout } from './_app';
 const HomePage: NextPageWithLayout = (): ReactElement => {
   return (
     <Stack>
-      <h1>Cookie numérique</h1>
+      <h1>Cookie numérique.</h1>
     </Stack>
   );
 };
