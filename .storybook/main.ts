@@ -11,10 +11,15 @@ const config: StorybookConfig = {
         __dirname,
         '../src/components'
       ),
+      '@/config': path.resolve(
+        __dirname,
+        '../src/config'
+      ),
     };
 
     return config;
   },
+  staticDirs: ['../src'],
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
@@ -33,6 +38,9 @@ const config: StorybookConfig = {
   // For generate auto doc page
   docs: {
     autodocs: 'tag',
+  },
+  features: {
+    emotionAlias: false,
   },
 };
 export default config;
