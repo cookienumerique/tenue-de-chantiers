@@ -7,7 +7,5 @@ type LayoutProps = {
 export default function Layout({
   children,
 }: LayoutProps) {
-  return (
-    <Stack border="1px solid black">{children}</Stack>
-  );
+  return <Stack height="100%">{children}</Stack>;
 }

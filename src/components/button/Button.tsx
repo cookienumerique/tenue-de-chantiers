@@ -11,7 +11,10 @@ export default function Button(
 ): ReactElement {
   const { children, colorScheme = 'blue' } = props;
   return (
-    <ButtonChakra colorScheme={colorScheme} {...props}>
+    <ButtonChakra
+      colorScheme={colorScheme}
+      {...props}
+    >
       {children}
     </ButtonChakra>
   );

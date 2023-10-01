@@ -2,7 +2,7 @@ import { Box, Stack, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
 type BannerProps = {
-  height: string;
+  height?: string;
 };
 export default function Banner(
   props: BannerProps
@@ -17,6 +17,7 @@ export default function Banner(
       justifyContent="center"
       alignItems="center"
       position="relative"
+      backgroundPosition="bottom"
     >
       <Box
         position="absolute"
