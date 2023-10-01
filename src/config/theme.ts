@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react';
 
+const components = {};
 const colors = {
   purple: {
     50: '#f3edfd',
@@ -20,10 +21,15 @@ const styles = {
     body: {
       fontFamily: 'Jura',
     },
+    h1: {
+      fontSize: '24px',
+      color: 'red.300',
+    },
   },
 };
 
 export const theme = extendTheme({
+  components,
   colors,
   styles,
 });

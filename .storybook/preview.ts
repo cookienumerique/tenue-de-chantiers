@@ -1,10 +1,13 @@
 import type { Preview } from '@storybook/react';
 
-import { theme } from '../src/config/theme';
+// @ts-ignore
+import { theme } from '@/config/theme';
 
 const preview: Preview = {
+  // @ts-ignore
   chakra: {
     theme,
+    resetCSS: true,
   },
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },

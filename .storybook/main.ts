@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 import path from 'path';
 
 const config: StorybookConfig = {
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config) => {
     // @ts-ignore
     config.resolve.alias = {
       // @ts-ignore
@@ -16,10 +16,16 @@ const config: StorybookConfig = {
         '../src/config'
       ),
     };
+    // @ts-ignore
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    });
 
     return config;
   },
-  staticDirs: ['../src'],
+  staticDirs: ['../src', '../public'],
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
@@ -38,9 +44,6 @@ const config: StorybookConfig = {
   // For generate auto doc page
   docs: {
     autodocs: 'tag',
-  },
-  features: {
-    emotionAlias: false,
   },
 };
 export default config;

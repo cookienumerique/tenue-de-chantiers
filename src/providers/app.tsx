@@ -22,7 +22,10 @@ type AppProviderProps = {
 export const AppProvider = (props: AppProviderProps) => {
   const { children } = props;
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider
+      resetCSS
+      theme={theme}
+    >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
