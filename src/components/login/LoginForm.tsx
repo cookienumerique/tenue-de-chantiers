@@ -49,7 +49,11 @@ function LoginForm(props: LoginFormProps): ReactElement {
             marginLeft="auto"
             width="fit-content"
             colorScheme="purple"
-            onClick={form.handleSubmit(onValid, onError)}
+            onClick={form.handleSubmit(
+              ({ email, password }) =>
+                onValid({ email, password }),
+              onError
+            )}
           >
             Se connecter
           </Button>
