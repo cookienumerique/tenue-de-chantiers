@@ -1,9 +1,15 @@
 import type { Preview } from '@storybook/react';
-
+import {
+  initialize,
+  mswDecorator,
+} from 'msw-storybook-addon';
 // @ts-ignore
 import { theme } from '@/config/theme';
 
+// Initialize MSW
+initialize();
 const preview: Preview = {
+  decorators: [mswDecorator],
   // @ts-ignore
   chakra: {
     theme,

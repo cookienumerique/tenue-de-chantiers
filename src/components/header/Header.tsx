@@ -10,7 +10,6 @@ export default function Header(): ReactElement {
       paddingY={4}
       fontSize="lg"
     >
-      <Text as="h1">test</Text>
       <Text
         as="h1"
         color="white"

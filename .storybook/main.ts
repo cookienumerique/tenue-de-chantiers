@@ -7,35 +7,19 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       // @ts-ignore
       ...config.resolve.alias,
-      '@/components': path.resolve(
-        __dirname,
-        '../src/components'
-      ),
-      '@/config': path.resolve(
-        __dirname,
-        '../src/config'
-      ),
+      '@': path.resolve(__dirname, '../src'),
     };
-    // @ts-ignore
-    config.module.rules.push({
-      test: /\.mjs$/,
-      include: /node_modules/,
-      type: 'javascript/auto',
-    });
-
     return config;
   },
   staticDirs: ['../src', '../public'],
-  stories: [
-    '../src/**/*.mdx',
-    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@chakra-ui/storybook-addon',
+    '@storybook/addon-jest',
   ],
   framework: {
     name: '@storybook/nextjs',
