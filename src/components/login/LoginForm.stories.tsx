@@ -6,8 +6,9 @@ import {
   waitFor,
   within,
 } from '@storybook/testing-library';
+import { fn } from 'jest-mock';
 
-import LoginForm from './LoginForm';
+import LoginForm from '@/components/login/LoginForm';
 
 const meta = {
   title: 'CookUI/LoginForm',
@@ -46,6 +47,9 @@ export const EmptySubmit: Story = {
 };
 
 export const ValidSubmit: Story = {
+  args: {
+    onValid: fn((values) => console.log(values)),
+  },
   play: async ({ canvasElement, args }) => {
     const email = 'example-email@email.com';
     const password = 'mypassword';
