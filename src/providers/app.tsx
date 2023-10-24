@@ -29,7 +29,11 @@ export const AppProvider = (props: AppProviderProps) => {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
-        <Stack className={myFont.className}>
+        <Stack
+          className={myFont.className}
+          id="__next"
+          height="100%"
+        >
           {children}
         </Stack>
       </QueryClientProvider>

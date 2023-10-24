@@ -20,6 +20,10 @@ const styles = {
   global: {
     body: {
       fontFamily: 'Jura',
+      minHeight: '100vh',
+    },
+    '#__next': {
+      minHeight: '100vh',
     },
     h1: {
       fontSize: '24px',
