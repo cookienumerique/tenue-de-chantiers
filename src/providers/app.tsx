@@ -5,15 +5,14 @@ import {
 } from '@chakra-ui/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 
 import { theme } from '@/config/theme';
 import { queryClient } from '@/lib/react-query';
 
-const myFont = localFont({
-  src: '../fonts/jura/Jura-Medium.woff',
-});
+// const myFont = localFont({
+//   src: '',
+// });
 
 type AppProviderProps = {
   children: ReactNode;
@@ -30,7 +29,7 @@ export const AppProvider = (props: AppProviderProps) => {
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
         <Stack
-          className={myFont.className}
+          // className={myFont.className}
           id="__next"
           height="100%"
         >

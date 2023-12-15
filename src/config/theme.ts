@@ -19,7 +19,6 @@ const colors = {
 const styles = {
   global: {
     body: {
-      fontFamily: 'Jura',
       minHeight: '100vh',
     },
     '#__next': {

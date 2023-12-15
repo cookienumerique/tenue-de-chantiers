@@ -18,7 +18,6 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
-    '@chakra-ui/storybook-addon',
     '@storybook/addon-jest',
   ],
   framework: {
