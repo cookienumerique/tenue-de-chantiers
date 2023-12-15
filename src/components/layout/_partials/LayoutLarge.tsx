@@ -1,6 +1,8 @@
 import { Stack } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
+import ButtonShortCut from '@/components/button/ButtonShortCut';
+
 type LayoutLargeProps = {
   children: ReactElement | ReactElement[];
 };
@@ -15,5 +17,10 @@ export default function LayoutLarge(
 ): ReactElement {
   const { children } = props;
 
-  return <Stack>{children}</Stack>;
+  return (
+    <Stack>
+      {children}
+      <ButtonShortCut />
+    </Stack>
+  );
 }

@@ -8,7 +8,7 @@ import { NextPageWithLayout } from './_app';
 const HomePage: NextPageWithLayout = (): ReactElement => {
   return (
     <Stack>
-      <p>d</p>
+      <p>Homepage</p>
     </Stack>
   );
 };

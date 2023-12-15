@@ -1,6 +1,8 @@
 import { Stack } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
+import ButtonShortCut from '@/components/button/ButtonShortCut';
+
 type LayoutMobileProps = {
   children: ReactElement | ReactElement[];
 };
@@ -15,5 +17,12 @@ export default function LayoutMobile(
 ): ReactElement {
   const { children } = props;
 
-  return <Stack>{children}</Stack>;
+  return (
+    <Stack>
+      {children}
+      <Stack>
+        <ButtonShortCut />
+      </Stack>
+    </Stack>
+  );
 }

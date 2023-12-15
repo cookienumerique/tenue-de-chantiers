@@ -1,4 +1,8 @@
-import { useBreakpointValue } from '@chakra-ui/react';
+import {
+  Stack,
+  useBreakpointValue,
+} from '@chakra-ui/react';
+import Head from 'next/head';
 import { ReactElement } from 'react';
 
 import LayoutLarge from '@/components/layout/_partials/LayoutLarge';
@@ -17,8 +21,33 @@ export default function Layout(
     md: false,
   });
 
+  const head = (
+    <Head>
+      <link
+        rel="icon"
+        href="/images/favicon.ico"
+      />
+    </Head>
+  );
+  // Layout mobile
   if (isMobile) {
-    return <LayoutMobile>{children}</LayoutMobile>;
+    return (
+      <LayoutMobile>
+        <Stack>
+          {head}
+          {children}
+        </Stack>
+      </LayoutMobile>
+    );
   }
-  return <LayoutLarge>{children}</LayoutLarge>;
+
+  // Layout large
+  return (
+    <LayoutLarge>
+      <Stack>
+        {head}
+        {children}
+      </Stack>
+    </LayoutLarge>
+  );
 }

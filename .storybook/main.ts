@@ -19,6 +19,7 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@storybook/addon-jest',
+    '@chakra-ui/storybook-addon',
   ],
   framework: {
     name: '@storybook/nextjs',
