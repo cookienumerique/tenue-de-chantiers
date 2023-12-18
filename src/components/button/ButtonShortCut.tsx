@@ -43,26 +43,28 @@ export default function ButtonShortCut(): ReactElement {
         offsetY="2em"
         in={isOpenedMenu}
       >
-        <Stack gap={gap}>
-          <IconButton
-            {...commonProps}
-            aria-label="carte"
-            label="Accéder à la carte"
-            icon={<IoMapOutline />}
-          />
-          <IconButton
-            {...commonProps}
-            label="Rechercher"
-            aria-label="search"
-            icon={<IoMdSearch />}
-          />
-          <IconButton
-            {...commonProps}
-            label="Créer une infraction"
-            aria-label="create"
-            icon={<IoAddSharp />}
-          />
-        </Stack>
+        {isOpenedMenu && (
+          <Stack gap={gap}>
+            <IconButton
+              {...commonProps}
+              aria-label="carte"
+              label="Accéder à la carte"
+              icon={<IoMapOutline />}
+            />
+            <IconButton
+              {...commonProps}
+              label="Rechercher"
+              aria-label="search"
+              icon={<IoMdSearch />}
+            />
+            <IconButton
+              {...commonProps}
+              label="Créer une infraction"
+              aria-label="create"
+              icon={<IoAddSharp />}
+            />
+          </Stack>
+        )}
       </SlideFade>
 
       <IconButton
