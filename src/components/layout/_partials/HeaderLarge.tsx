@@ -4,10 +4,10 @@ import { ReactElement } from 'react';
 import HeaderTitle from '@/components/layout/header/HeaderTitle';
 
 /**
- * @description Header for mobile
+ * @description Header for large screen
  * @constructor
  */
-export default function HeaderMobile(): ReactElement {
+export default function HeaderLarge(): ReactElement {
   const name = 'John Doe';
   return (
     <Stack
@@ -27,7 +27,7 @@ export default function HeaderMobile(): ReactElement {
         {/*  alt="logo"*/}
         {/*/>*/}
         {/* Title app*/}
-        <HeaderTitle fontSize="md" />
+        <HeaderTitle fontSize="xl" />
 
         {/* Avatar user */}
         <Stack alignSelf="end">

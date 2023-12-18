@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 
 import ButtonShortCut from '@/components/button/ButtonShortCut';
 import HeaderMobile from '@/components/layout/_partials/HeaderMobile';
+import Body from '@/components/layout/Body/Body';
 
 type LayoutMobileProps = {
   children: ReactElement | ReactElement[];
@@ -19,12 +20,19 @@ export default function LayoutMobile(
   const { children } = props;
 
   return (
-    <Stack>
+    <Stack
+      flex="1"
+      gap={0}
+    >
       {/* Header */}
       <HeaderMobile />
       {/* Content */}
-      <Stack></Stack>
-      {children}
+      <Body
+        paddingY="xs"
+        paddingX="sm"
+      >
+        {children}
+      </Body>
       {/* Footer */}
       <Stack>
         <ButtonShortCut />
