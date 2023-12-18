@@ -3,11 +3,8 @@ import { ReactElement } from 'react';
 
 import ButtonShortCut from '@/components/button/ButtonShortCut';
 import HeaderMobile from '@/components/layout/_partials/HeaderMobile';
+import { LayoutProps } from '@/components/layout/_partials/LayoutLarge';
 import Body from '@/components/layout/Body/Body';
-
-type LayoutMobileProps = {
-  children: ReactElement | ReactElement[];
-};
 
 /**
  * @description Layout for mobile
@@ -15,14 +12,14 @@ type LayoutMobileProps = {
  * @constructor
  */
 export default function LayoutMobile(
-  props: LayoutMobileProps
+  props: LayoutProps
 ): ReactElement {
-  const { children } = props;
+  const { children, flex, gap } = props;
 
   return (
     <Stack
-      flex="1"
-      gap={0}
+      flex={flex}
+      gap={gap}
     >
       {/* Header */}
       <HeaderMobile />

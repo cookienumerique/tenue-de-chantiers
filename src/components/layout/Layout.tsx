@@ -3,7 +3,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 import LayoutLarge from '@/components/layout/_partials/LayoutLarge';
 import LayoutMobile from '@/components/layout/_partials/LayoutMobile';
@@ -21,33 +21,23 @@ export default function Layout(
     md: false,
   });
 
-  const head = (
-    <Head>
-      <link
-        rel="icon"
-        href="/images/favicon.ico"
-      />
-    </Head>
+  const layout = isMobile ? LayoutMobile : LayoutLarge;
+  const content = (
+    <Stack>
+      <Head>
+        <link
+          rel="icon"
+          href="/images/favicon.ico"
+        />
+      </Head>
+      {children}
+    </Stack>
   );
-  // Layout mobile
-  if (isMobile) {
-    return (
-      <LayoutMobile>
-        <Stack>
-          {head}
-          {children}
-        </Stack>
-      </LayoutMobile>
-    );
-  }
 
-  // Layout large
-  return (
-    <LayoutLarge>
-      <Stack>
-        {head}
-        {children}
-      </Stack>
-    </LayoutLarge>
-  );
+  // eslint-disable-next-line
+  return React.createElement(layout, {
+    flex: 1,
+    gap: 0,
+    children: content,
+  });
 }

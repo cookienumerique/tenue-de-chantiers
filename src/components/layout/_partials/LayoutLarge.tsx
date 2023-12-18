@@ -5,7 +5,9 @@ import ButtonShortCut from '@/components/button/ButtonShortCut';
 import HeaderLarge from '@/components/layout/_partials/HeaderLarge';
 import Body from '@/components/layout/Body/Body';
 
-type LayoutLargeProps = {
+export type LayoutProps = {
+  flex?: number;
+  gap?: number;
   children: ReactElement | ReactElement[];
 };
 
@@ -15,14 +17,14 @@ type LayoutLargeProps = {
  * @constructor
  */
 export default function LayoutLarge(
-  props: LayoutLargeProps
+  props: LayoutProps
 ): ReactElement {
-  const { children } = props;
+  const { children, flex, gap } = props;
 
   return (
     <Stack
-      flex="1"
-      gap={0}
+      flex={flex}
+      gap={gap}
     >
       {/* Header */}
       <HeaderLarge />
