@@ -2,18 +2,33 @@ import { extendTheme } from '@chakra-ui/react';
 
 const components = {};
 const colors = {
-  green: {
-    50: '#e2fbed',
-    100: '#c2ebd4',
-    200: '#9fddb9',
-    300: '#7ccf9e',
-    400: '#58c184',
-    500: '#3ea76a',
-    600: '#2e8251',
-    700: '#1f5d3a',
-    800: '#0f3921',
-    900: '#001506',
+  primary: {
+    50: '#fff2de',
+    100: '#fddcb2',
+    200: '#fac585',
+    300: '#f6ad55',
+    400: '#f39627',
+    500: '#da7c0f',
+    600: '#aa6109',
+    700: '#794504',
+    800: '#4a2800',
+    900: '#1d0d00',
   },
+};
+
+const spaces = {
+  xs: '16px',
+  sm: '24px',
+  md: '32px',
+  lg: '48px',
+  xl: '64px',
+};
+
+const borderRadiius = {
+  sm: '4px',
+  md: '8px',
+  lg: '16px',
+  xl: '32px',
 };
 
 const styles = {
@@ -35,4 +50,6 @@ export const theme = extendTheme({
   components,
   colors,
   styles,
+  space: spaces,
+  borderRadiius,
 });
