@@ -13,7 +13,7 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
     id: number
   ): Promise<boolean> => {
     return router.push(
-      `/creer-une-infraction?lotId=${id}`
+      `/infractions/creer-une-infraction?lotId=${id}`
     );
   };
   return (

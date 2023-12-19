@@ -1,7 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 
-const components = {};
 const colors = {
+  greyDark: '#4b5768',
   primary: {
     50: '#fff2de',
     100: '#fddcb2',
@@ -16,7 +16,16 @@ const colors = {
   },
 };
 
-const spaces = {
+const components = {
+  FormLabel: {
+    baseStyle: {
+      color: colors.greyDark,
+      fontWeight: 'bold',
+    },
+  },
+};
+
+const space = {
   xs: '16px',
   sm: '24px',
   md: '32px',
@@ -29,6 +38,14 @@ const borderRadiius = {
   md: '8px',
   lg: '16px',
   xl: '32px',
+};
+
+const fontSizes = {
+  xs: '12px',
+  sm: '14px',
+  md: '16px',
+  lg: '20px',
+  xl: '24px',
 };
 
 const styles = {
@@ -50,6 +67,7 @@ export const theme = extendTheme({
   components,
   colors,
   styles,
-  space: spaces,
+  space,
   borderRadiius,
+  fontSizes,
 });
