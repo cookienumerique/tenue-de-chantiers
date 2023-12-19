@@ -1,0 +1,48 @@
+import {
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import axios from 'axios';
+
+import Lot from '@/interfaces/Lot';
+import FindByIdProps from '@/types/query/FindByIdProps';
+import FindByIdReturn from '@/types/query/FindByReturn';
+
+/**
+ * @description Find a lot by id
+ */
+const useFindLotById = ({
+  id,
+  key,
+  enabled,
+}: FindByIdProps): FindByIdReturn<Lot | null> => {
+  const queryKey = [key ?? `lot-${id}`];
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, isError } = useQuery(
+    queryKey,
+    async () => {
+      return axios.get(
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/lots/${id}`
+      );
+    },
+    { enabled, retry: false }
+  );
+
+  const invalidate = () =>
+    queryClient.invalidateQueries(queryKey);
+
+  const { lots } =
+    (data as unknown as {
+      lots: Lot | null;
+    }) ?? {};
+
+  return {
+    data: lots,
+    isLoading,
+    isError,
+    invalidate,
+  };
+};
+
+export default useFindLotById;
