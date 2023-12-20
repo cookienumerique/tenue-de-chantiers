@@ -2,7 +2,6 @@ import { Button, Stack, Text } from '@chakra-ui/react';
 import { Formiz, useForm } from '@formiz/core';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
-import { useEffect } from 'react';
 
 import Layout from '@/components/layout/Layout';
 import useFindLotById from '@/hooks/lots/useFindLotById';
@@ -18,12 +17,6 @@ const CreationInfractionPage: NextPageWithLayout =
     const form = useForm({
       onSubmit: (values) => console.log('submit', values),
     });
-
-    useEffect(() => {
-      if (!lotId) {
-        router.push('/').then((r) => r);
-      }
-    }, [router, lotId]);
 
     // Récupération du lot
     const {
