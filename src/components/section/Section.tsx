@@ -24,6 +24,7 @@ export default function Section(
       <Text
         fontSize="lg"
         fontWeight="bold"
+        color="gray.700"
       >
         {title}
       </Text>

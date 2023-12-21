@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
-import useFindAllInfractionsByCategorieOptions from '@/hooks/infraction/useFindAllInfractionsByCategorieOptions';
+import useFindAllInfractionsByCategorieOptions from '@/hooks/infractions/useFindAllInfractionsByCategorieOptions';
 
 type SelectInfractionByCategorieProps = {
   categorie: string | undefined;

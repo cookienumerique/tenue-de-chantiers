@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
 import CpgEnum from '@/enums/CpgEnum';
-import useFindAllInfractionsCategorieOptions from '@/hooks/infraction/useFindAllInfractionsCategorieOptions';
+import useFindAllInfractionsCategorieOptions from '@/hooks/infractions/useFindAllInfractionsCategorieOptions';
 
 type SelectInfractionCategorieProps = {
   onChange?: () => void;

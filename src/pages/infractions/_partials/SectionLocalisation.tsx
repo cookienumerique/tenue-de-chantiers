@@ -28,7 +28,9 @@ export default function SectionLocalisation(
         isLoading={isLoading}
         isError={isError}
       />
-      <Stack width={{ base: '100%', md: '20em' }}>
+      <Stack
+        width={{ base: '100%', md: '50%', lg: '25%' }}
+      >
         {/*<SelectZac defaultValue={lot?.zac?.id} />*/}
         <SelectLotByZacId
           defaultValue={lot?.id as string}

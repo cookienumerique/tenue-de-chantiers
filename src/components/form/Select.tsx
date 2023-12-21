@@ -5,7 +5,7 @@ import {
   FormLabel,
   Skeleton,
 } from '@chakra-ui/react';
-import { useField } from '@formiz/core';
+import { FieldValidation, useField } from '@formiz/core';
 import { Key, ReactElement, useEffect } from 'react';
 import { default as ReactSelect } from 'react-select';
 
@@ -22,6 +22,8 @@ type SelectProps = {
   isError?: boolean;
   onChange?: (newValue: LabelValue) => void;
   required?: boolean;
+  optionMessage?: string;
+  validations?: FieldValidation[];
 };
 
 export default function Select(
@@ -37,10 +39,17 @@ export default function Select(
     isLoading = false,
     isError = false,
     required = false,
+    optionMessage = 'Aucune option disponible',
+    validations,
   } = props;
 
-  const { value, setValue, errorMessage, isValid } =
-    useField(props, { required });
+  const {
+    value,
+    setValue,
+    errorMessage,
+    isValid,
+    isSubmitted,
+  } = useField(props);
 
   const handleChange = (newValue: LabelValue) => {
     // @ts-expect-error todo
@@ -77,10 +86,12 @@ export default function Select(
 
   return (
     <FormControl
-      isInvalid={isValid}
+      isInvalid={!isValid}
       isRequired={required}
     >
-      <FormLabel>{label}</FormLabel>
+      <FormLabel aria-required={required}>
+        {label}
+      </FormLabel>
       <ReactSelect
         key={defaultValue as Key}
         // @ts-expect-error todo
@@ -90,13 +101,21 @@ export default function Select(
         options={options}
         placeholder={placeholder}
         required={required}
+        aria-invalid={!isValid}
+        noOptionsMessage={() => optionMessage}
+        validations={validations}
       />
-      <FormHelperText>{helperMessage}</FormHelperText>
-      {isError && (
+      {helperMessage ? (
+        <FormHelperText>{helperMessage}</FormHelperText>
+      ) : null}
+      {!isValid ? (
         <FormErrorMessage>
+          {required && !value && isSubmitted
+            ? 'Ce champ est obligatoire'
+            : ''}
           {errorMessage}
         </FormErrorMessage>
-      )}
+      ) : null}
     </FormControl>
   );
 }

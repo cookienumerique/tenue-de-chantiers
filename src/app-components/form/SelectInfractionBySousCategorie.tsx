@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
-import useFindAllInfractionsBySousCategorieOptions from '@/hooks/infraction/useFindAllInfractionsBySousCategorieOptions';
+import useFindAllInfractionsBySousCategorieOptions from '@/hooks/infractions/useFindAllInfractionsBySousCategorieOptions';
 
 type SelectInfractionBySousCategorieProps = {
   sousCategorie: string | undefined;
@@ -26,7 +26,7 @@ export default function SelectInfractionBySousCategorie(
   return (
     <Select
       label="Libellé de l'infraction"
-      name="infraction.libelle"
+      name="infraction.optionLibelle"
       placeholder="Sélectionnez une infraction"
       isLoading={isLoadingInfraction}
       isError={isErrorInfraction}

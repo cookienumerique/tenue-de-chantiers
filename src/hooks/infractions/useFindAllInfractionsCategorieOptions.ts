@@ -1,5 +1,5 @@
 import CpgEnum from '@/enums/CpgEnum';
-import useFindAllInfractionsByCpg from '@/hooks/infraction/useFindAllInfractionsByCpg';
+import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
 import Infraction from '@/interfaces/Infraction';
 import LabelValue from '@/interfaces/LabelValue';
 import FindByIdReturn from '@/types/query/FindByReturn';

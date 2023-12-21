@@ -4,7 +4,12 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
+import useCreateInfractionLot, {
+  CreateInfractionLotPayload,
+} from '@/hooks/infractionLots/useCreateInfractionLot';
 import useFindLotById from '@/hooks/lots/useFindLotById';
+import LabelValue from '@/interfaces/LabelValue';
+import SectionDocuments from '@/pages/infractions/_partials/SectionDocuments';
 import SectionInfraction from '@/pages/infractions/_partials/SectionInfraction';
 import SectionLocalisation from '@/pages/infractions/_partials/SectionLocalisation';
 
@@ -13,9 +18,31 @@ import { NextPageWithLayout } from '../_app';
 const CreationInfractionPage: NextPageWithLayout =
   (): ReactElement => {
     const router = useRouter();
+    const {
+      mutate: createInfractionLot,
+      isLoading: isLoadingCreation,
+    } = useCreateInfractionLot();
     const { lotId } = router?.query;
+    /**
+     * @description Soumission du formulaire
+     * @param {Object} values - Valeurs du formulaire
+     */
+    const handleSubmit = (values: {
+      optionLot: LabelValue;
+      infraction: { optionLibelle: LabelValue };
+      urgenceOption: LabelValue;
+    }) => {
+      const { optionLot, infraction, urgenceOption } =
+        values ?? {};
+      const payload: CreateInfractionLotPayload = {
+        id_lot: optionLot?.value,
+        id_infraction: infraction?.optionLibelle?.value,
+        urgence: urgenceOption?.value,
+      };
+      createInfractionLot(payload);
+    };
     const form = useForm({
-      onSubmit: (values) => console.log('submit', values),
+      onValidSubmit: handleSubmit,
     });
 
     // Récupération du lot
@@ -43,8 +70,12 @@ const CreationInfractionPage: NextPageWithLayout =
           {/* Section infraction */}
           <SectionInfraction cpg={lot?.cpg} />
 
+          {/* Section documents */}
+          <SectionDocuments />
+
           {/* Soumission du formulaire */}
           <Button
+            isLoading={isLoadingCreation}
             colorScheme="primary"
             type="submit"
             onClick={form.submit}

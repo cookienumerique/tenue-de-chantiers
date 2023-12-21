@@ -1,3 +1,4 @@
+import { Stack } from '@chakra-ui/react';
 import {
   useFormContext,
   useFormFields,
@@ -7,6 +8,7 @@ import { ReactElement } from 'react';
 import SelectInfractionByCategorie from '@/app-components/form/SelectInfractionByCategorie';
 import SelectInfractionBySousCategorie from '@/app-components/form/SelectInfractionBySousCategorie';
 import SelectInfractionCategorie from '@/app-components/form/SelectInfractionCategorie';
+import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
 import Section from '@/components/section/Section';
 import CpgEnum from '@/enums/CpgEnum';
 
@@ -34,7 +36,7 @@ export default function SectionInfraction(
       sousCategorie: string;
     };
   };
-  console.log(infraction);
+
   const { categorie, sousCategorie } = infraction ?? {};
   /**
    * @description Reset les valeurs des sous-catégories et des libellés
@@ -58,22 +60,44 @@ export default function SectionInfraction(
 
   return (
     <Section title="Infraction">
-      {/* Select avec les catégories d'infractions */}
-      <SelectInfractionCategorie
-        cpg={cpg}
-        onChange={handleChangeSelectCategorie}
-      />
+      <Stack
+        width={{ base: '100%', md: '50%', lg: '25%' }}
+      >
+        {/* Sélection du cractère d'urgence */}
+        <SelectInfractionLotUrgence />
+      </Stack>
 
-      {/* Liste des sous-catégorie par catégorie */}
-      <SelectInfractionByCategorie
-        categorie={categorie}
-        onChange={handleChangeSelectSousCategorie}
-      />
+      <Stack gap="inherit">
+        <Stack
+          gap="inherit"
+          display={{ lg: 'flex' }}
+          flexDir={{ base: 'column', lg: 'row' }}
+        >
+          {/* Select avec les catégories d'infractions */}
+          <SelectInfractionCategorie
+            cpg={cpg}
+            onChange={handleChangeSelectCategorie}
+          />
 
-      {/* Liste des libellés par sous-catégorie */}
-      <SelectInfractionBySousCategorie
-        sousCategorie={sousCategorie}
-      />
+          {/* Liste des sous-catégorie par catégorie */}
+          <SelectInfractionByCategorie
+            categorie={categorie}
+            onChange={handleChangeSelectSousCategorie}
+          />
+        </Stack>
+
+        <Stack
+          gap="inherit"
+          display={{ lg: 'flex' }}
+          flexDir={{ base: 'column', lg: 'row' }}
+        >
+          {/* Liste des libellés par sous-catégorie */}
+          <SelectInfractionBySousCategorie
+            sousCategorie={sousCategorie}
+          />
+          <Stack width="100%" />
+        </Stack>
+      </Stack>
     </Section>
   );
 }

@@ -20,7 +20,7 @@ export default function SelectLotByZacId(
 ): ReactElement {
   const {
     defaultValue,
-    name = 'lotId',
+    name = 'optionLot',
     zacId,
     isLoading,
     isError,
