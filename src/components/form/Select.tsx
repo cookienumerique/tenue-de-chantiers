@@ -7,10 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useField } from '@formiz/core';
 import { Key, ReactElement, useEffect } from 'react';
-import {
-  default as ReactSelect,
-  SingleValue,
-} from 'react-select';
+import { default as ReactSelect } from 'react-select';
 
 import LabelValue from '@/interfaces/LabelValue';
 
@@ -24,6 +21,7 @@ type SelectProps = {
   isLoading?: boolean;
   isError?: boolean;
   onChange?: (newValue: LabelValue) => void;
+  required?: boolean;
 };
 
 export default function Select(
@@ -38,16 +36,15 @@ export default function Select(
     helperMessage,
     isLoading = false,
     isError = false,
+    required = false,
   } = props;
 
-  const { value, setValue, errorMessage } =
-    useField(props);
+  const { value, setValue, errorMessage, isValid } =
+    useField(props, { required });
 
-  const handleChange = (
-    newValue: SingleValue<string | number>
-  ) => {
-    setValue(newValue);
+  const handleChange = (newValue: LabelValue) => {
     // @ts-expect-error todo
+    setValue(newValue);
     onChange(newValue);
   };
 
@@ -79,18 +76,27 @@ export default function Select(
   if (isError) return <div>Error...</div>;
 
   return (
-    <FormControl isInvalid={!!errorMessage}>
-      <FormLabel aria-required>{label}</FormLabel>
+    <FormControl
+      isInvalid={isValid}
+      isRequired={required}
+    >
+      <FormLabel>{label}</FormLabel>
       <ReactSelect
         key={defaultValue as Key}
+        // @ts-expect-error todo
         onChange={handleChange}
         value={value}
         // @ts-expect-error todo
         options={options}
         placeholder={placeholder}
+        required={required}
       />
       <FormHelperText>{helperMessage}</FormHelperText>
-      <FormErrorMessage>{errorMessage}</FormErrorMessage>
+      {isError && (
+        <FormErrorMessage>
+          {errorMessage}
+        </FormErrorMessage>
+      )}
     </FormControl>
   );
 }

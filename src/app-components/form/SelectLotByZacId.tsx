@@ -51,6 +51,7 @@ export default function SelectLotByZacId(
       defaultValue={defaultValue}
       name={name}
       onChange={handleChange}
+      required
     />
   );
 }

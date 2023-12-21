@@ -31,6 +31,7 @@ export default function SelectInfractionBySousCategorie(
       isLoading={isLoadingInfraction}
       isError={isErrorInfraction}
       options={optionsInfractionLibelle}
+      required
     />
   );
 }

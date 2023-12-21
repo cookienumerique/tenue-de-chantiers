@@ -33,6 +33,7 @@ export default function SelectInfractionCategorie(
       isError={isErrorInfraction}
       options={options}
       onChange={onChange}
+      required
     />
   );
 }

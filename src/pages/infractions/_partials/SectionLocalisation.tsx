@@ -1,5 +1,4 @@
 import { Stack } from '@chakra-ui/react';
-import { Formiz, useForm } from '@formiz/core';
 import { ReactElement } from 'react';
 
 import SelectLotByZacId from '@/app-components/form/SelectLotByZacId';
@@ -21,26 +20,29 @@ export default function SectionLocalisation(
 ): ReactElement {
   const { lot, isLoading, isError } = props;
 
-  const form = useForm();
   return (
-    <Formiz connect={form}>
-      <Section title="Localisation">
-        <ZacLabel
-          nom={lot?.zac?.nom}
-          patrimoine={lot?.zac?.patrimoine}
+    <Section title="Localisation">
+      <ZacLabel
+        nom={lot?.zac?.nom}
+        patrimoine={lot?.zac?.patrimoine}
+        isLoading={isLoading}
+        isError={isError}
+      />
+      <Stack width={{ base: '100%', md: '20em' }}>
+        {/*<SelectZac defaultValue={lot?.zac?.id} />*/}
+        <SelectLotByZacId
+          defaultValue={lot?.id as string}
+          zacId={lot?.zac?.id}
           isLoading={isLoading}
           isError={isError}
         />
-        <Stack width={{ base: '100%', md: '20em' }}>
-          {/*<SelectZac defaultValue={lot?.zac?.id} />*/}
-          <SelectLotByZacId
-            defaultValue={lot?.id as string}
-            zacId={lot?.zac?.id}
-            isLoading={isLoading}
-            isError={isError}
-          />
-        </Stack>
-      </Section>
-    </Formiz>
+      </Stack>
+    </Section>
   );
 }
+
+function getInitialProps() {
+  return {};
+}
+
+SectionLocalisation.getInitialProps = getInitialProps;

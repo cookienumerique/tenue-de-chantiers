@@ -1,6 +1,5 @@
 import {
-  Formiz,
-  useForm,
+  useFormContext,
   useFormFields,
 } from '@formiz/core';
 import { ReactElement } from 'react';
@@ -22,9 +21,8 @@ export default function SectionInfraction(
 ): ReactElement {
   const { cpg } = props;
 
-  const form = useForm();
+  const form = useFormContext();
   const { infraction } = useFormFields({
-    connect: form,
     fields: [
       'infraction.categorie',
       'infraction.sousCategorie',
@@ -36,6 +34,7 @@ export default function SectionInfraction(
       sousCategorie: string;
     };
   };
+  console.log(infraction);
   const { categorie, sousCategorie } = infraction ?? {};
   /**
    * @description Reset les valeurs des sous-catégories et des libellés
@@ -58,25 +57,29 @@ export default function SectionInfraction(
   if (!cpg) return <></>;
 
   return (
-    <Formiz connect={form}>
-      <Section title="Infraction">
-        {/* Select avec les catégories d'infractions */}
-        <SelectInfractionCategorie
-          cpg={cpg}
-          onChange={handleChangeSelectCategorie}
-        />
+    <Section title="Infraction">
+      {/* Select avec les catégories d'infractions */}
+      <SelectInfractionCategorie
+        cpg={cpg}
+        onChange={handleChangeSelectCategorie}
+      />
 
-        {/* Liste des sous-catégorie par catégorie */}
-        <SelectInfractionByCategorie
-          categorie={categorie}
-          onChange={handleChangeSelectSousCategorie}
-        />
+      {/* Liste des sous-catégorie par catégorie */}
+      <SelectInfractionByCategorie
+        categorie={categorie}
+        onChange={handleChangeSelectSousCategorie}
+      />
 
-        {/* Liste des libellés par sous-catégorie */}
-        <SelectInfractionBySousCategorie
-          sousCategorie={sousCategorie}
-        />
-      </Section>
-    </Formiz>
+      {/* Liste des libellés par sous-catégorie */}
+      <SelectInfractionBySousCategorie
+        sousCategorie={sousCategorie}
+      />
+    </Section>
   );
 }
+
+function getInitialProps() {
+  return {};
+}
+
+SectionInfraction.getInitialProps = getInitialProps;
