@@ -1,4 +1,5 @@
 import CpgEnum from '@/enums/CpgEnum';
+import uniqueOptions from '@/functions/uniqueOptions';
 import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
 import Infraction from '@/interfaces/Infraction';
 import LabelValue from '@/interfaces/LabelValue';
@@ -17,28 +18,27 @@ export default function useFindAllInfractionsCategorieOptions(
   const queryParams = new URLSearchParams({
     cpg: cpg ?? '',
   });
+
   const { data, isLoading, isError, invalidate } =
     useFindAllInfractionsByCpg({
       queryParams,
       key: ['infraction', cpg ?? ''],
     });
 
-  const options = data?.map((infraction: Infraction) => {
-    return {
-      label: infraction.categorie,
-      value: infraction.id,
-    };
-  });
-
-  // Create a new array with unique values
-  const uniqueOptions = options?.filter(
-    (option, index, self) =>
-      index ===
-      self.findIndex((t) => t.label === option.label)
+  const optionsByCpg = data?.map(
+    (infraction: Infraction) => {
+      return {
+        label: infraction.categorie,
+        value: infraction.id,
+      };
+    }
   );
 
+  // Create a new array with unique values
+  const options = uniqueOptions(optionsByCpg);
+
   return {
-    data: uniqueOptions,
+    data: options,
     isLoading,
     isError,
     invalidate,

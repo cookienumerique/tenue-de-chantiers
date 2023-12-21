@@ -23,7 +23,7 @@ const useFindAllInfractionsByCpg = ({
     queryKey,
     () => {
       return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/infractions`,
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/infractions/`,
         {
           params: queryParams,
         }

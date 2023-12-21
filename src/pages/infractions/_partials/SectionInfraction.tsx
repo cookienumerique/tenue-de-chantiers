@@ -6,8 +6,8 @@ import {
 import { ReactElement } from 'react';
 
 import SelectInfractionByCategorie from '@/app-components/form/SelectInfractionByCategorie';
+import SelectInfractionByCpg from '@/app-components/form/SelectInfractionByCpg';
 import SelectInfractionBySousCategorie from '@/app-components/form/SelectInfractionBySousCategorie';
-import SelectInfractionCategorie from '@/app-components/form/SelectInfractionCategorie';
 import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
 import Section from '@/components/section/Section';
 import CpgEnum from '@/enums/CpgEnum';
@@ -73,17 +73,27 @@ export default function SectionInfraction(
           display={{ lg: 'flex' }}
           flexDir={{ base: 'column', lg: 'row' }}
         >
-          {/* Select avec les catégories d'infractions */}
-          <SelectInfractionCategorie
-            cpg={cpg}
-            onChange={handleChangeSelectCategorie}
-          />
+          <Stack
+            maxWidth={{ sm: '100%', lg: '50%' }}
+            flex="1"
+          >
+            {/* Select avec les catégories d'infractions */}
+            <SelectInfractionByCpg
+              cpg={cpg}
+              onChange={handleChangeSelectCategorie}
+            />
+          </Stack>
 
-          {/* Liste des sous-catégorie par catégorie */}
-          <SelectInfractionByCategorie
-            categorie={categorie}
-            onChange={handleChangeSelectSousCategorie}
-          />
+          <Stack
+            maxWidth={{ sm: '100%', lg: '50%' }}
+            flex="1"
+          >
+            {/* Liste des sous-catégorie par catégorie */}
+            <SelectInfractionByCategorie
+              categorie={categorie}
+              onChange={handleChangeSelectSousCategorie}
+            />
+          </Stack>
         </Stack>
 
         <Stack

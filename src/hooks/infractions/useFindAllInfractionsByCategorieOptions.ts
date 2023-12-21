@@ -1,3 +1,4 @@
+import uniqueOptions from '@/functions/uniqueOptions';
 import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
 import LabelValue from '@/interfaces/LabelValue';
 import FindByIdReturn from '@/types/query/FindByReturn';
@@ -27,13 +28,10 @@ export default function useFindAllInfractionsByCategorieOptions(
     });
 
   // Create a neoptionsByCategoriew array with unique values
-  const uniqueOptions = optionsByCategorie?.filter(
-    (option, index, self) =>
-      index ===
-      self.findIndex((t) => t.label === option.label)
-  );
+  const options = uniqueOptions(optionsByCategorie);
+
   return {
-    data: uniqueOptions,
+    data: options,
     isLoading,
     isError,
     invalidate,

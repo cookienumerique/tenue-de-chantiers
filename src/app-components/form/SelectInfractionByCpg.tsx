@@ -9,9 +9,9 @@ type SelectInfractionCategorieProps = {
   cpg: CpgEnum | undefined;
 };
 /**
- * @description Un select pour les catégories d'infractions
+ * @description Un select des infractions par CPG
  */
-export default function SelectInfractionCategorie(
+export default function SelectInfractionByCpg(
   props: SelectInfractionCategorieProps
 ): ReactElement {
   const { onChange, cpg } = props;
