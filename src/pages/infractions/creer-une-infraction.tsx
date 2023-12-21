@@ -1,8 +1,9 @@
-import { Button, Stack, Text } from '@chakra-ui/react';
+import { Stack, Text } from '@chakra-ui/react';
 import { Formiz, useForm } from '@formiz/core';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
+import Button from '@/components/button/Button';
 import Layout from '@/components/layout/Layout';
 import useCreateInfractionLot, {
   CreateInfractionLotPayload,
@@ -18,11 +19,17 @@ import { NextPageWithLayout } from '../_app';
 const CreationInfractionPage: NextPageWithLayout =
   (): ReactElement => {
     const router = useRouter();
+
+    const callbackOnSuccess = () => router.push('/');
+    const { lotId } = router?.query;
+
     const {
       mutate: createInfractionLot,
       isLoading: isLoadingCreation,
-    } = useCreateInfractionLot();
-    const { lotId } = router?.query;
+    } = useCreateInfractionLot({
+      callbackOnSuccess,
+    });
+
     /**
      * @description Soumission du formulaire
      * @param {Object} values - Valeurs du formulaire
@@ -32,13 +39,18 @@ const CreationInfractionPage: NextPageWithLayout =
       infraction: { optionLibelle: LabelValue };
       urgenceOption: LabelValue;
     }) => {
+      // Récupération des valeurs
       const { optionLot, infraction, urgenceOption } =
         values ?? {};
+
+      // Construction de la payload
       const payload: CreateInfractionLotPayload = {
         id_lot: optionLot?.value,
         id_infraction: infraction?.optionLibelle?.value,
         urgence: urgenceOption?.value,
       };
+
+      // Creation de la ressource
       createInfractionLot(payload);
     };
     const form = useForm({
@@ -76,7 +88,6 @@ const CreationInfractionPage: NextPageWithLayout =
           {/* Soumission du formulaire */}
           <Button
             isLoading={isLoadingCreation}
-            colorScheme="primary"
             type="submit"
             onClick={form.submit}
           >
