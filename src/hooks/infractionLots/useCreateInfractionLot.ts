@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
 import useToastSuccess from '@/hooks/toast/useToastSuccess';
+import Lot from '@/interfaces/Lot';
 import MutationProps from '@/types/query/MutationProps';
 
 export type CreateInfractionLotPayload = {
@@ -10,11 +11,13 @@ export type CreateInfractionLotPayload = {
   urgence: string | number;
 };
 
+export type CreationInfractionLotResponse =
+  AxiosResponse<{ infractions_lot: Lot }>;
 /**
  * @description Création d'une infraction lot
  */
 const useCreateInfractionLot = (
-  props?: MutationProps
+  props?: MutationProps<{ infractions_lots: Lot }>
 ) => {
   const {
     callbackOnSuccess = () => null,
@@ -22,6 +25,7 @@ const useCreateInfractionLot = (
   } = props ?? {};
   const toastSuccess = useToastSuccess();
   return useMutation(
+    // @ts-expect-error todo
     (payload: CreateInfractionLotPayload) => {
       return Axios.post(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/infractions-lots`,
@@ -32,7 +36,9 @@ const useCreateInfractionLot = (
       onError: (error) => {
         callbackOnError(error);
       },
-      onSuccess: async (data) => {
+      onSuccess: async (data: {
+        infractions_lots: Lot;
+      }) => {
         toastSuccess({
           title: 'Création réussie',
           description:

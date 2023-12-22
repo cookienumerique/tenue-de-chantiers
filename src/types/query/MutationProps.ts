@@ -1,7 +1,5 @@
-import { AxiosResponse } from 'axios';
-
-type MutationProps = {
-  callbackOnSuccess?: (success: AxiosResponse) => void;
+type MutationProps<T> = {
+  callbackOnSuccess?: (success: T) => void;
   callbackOnError?: (error: unknown) => void;
 };
 

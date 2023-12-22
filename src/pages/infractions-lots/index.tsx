@@ -10,9 +10,10 @@ import useCreateInfractionLot, {
 } from '@/hooks/infractionLots/useCreateInfractionLot';
 import useFindLotById from '@/hooks/lots/useFindLotById';
 import LabelValue from '@/interfaces/LabelValue';
-import SectionDocuments from '@/pages/infractions/_partials/SectionDocuments';
-import SectionInfraction from '@/pages/infractions/_partials/SectionInfraction';
-import SectionLocalisation from '@/pages/infractions/_partials/SectionLocalisation';
+import Lot from '@/interfaces/Lot';
+import SectionDocuments from '@/pages/infractions-lots/_partials/SectionDocuments';
+import SectionInfraction from '@/pages/infractions-lots/_partials/SectionInfraction';
+import SectionLocalisation from '@/pages/infractions-lots/_partials/SectionLocalisation';
 
 import { NextPageWithLayout } from '../_app';
 
@@ -20,7 +21,15 @@ const CreationInfractionPage: NextPageWithLayout =
   (): ReactElement => {
     const router = useRouter();
 
-    const callbackOnSuccess = () => router.push('/');
+    const callbackOnSuccess = (data: {
+      infractions_lots: Lot;
+    }) => {
+      const { id: infractionLotId } =
+        data?.infractions_lots as Lot;
+      router
+        .push(`/infractions-lots/${infractionLotId}`)
+        .then((r) => r);
+    };
     const { lotId } = router?.query;
 
     const {

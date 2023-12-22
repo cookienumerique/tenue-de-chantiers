@@ -12,9 +12,7 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
   const handleRedirect = (
     id: number
   ): Promise<boolean> => {
-    return router.push(
-      `/infractions/creer-une-infraction?lotId=${id}`
-    );
+    return router.push(`/infractions-lots?lotId=${id}`);
   };
   return (
     <Stack>

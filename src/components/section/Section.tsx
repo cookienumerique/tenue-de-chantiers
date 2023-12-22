@@ -1,15 +1,19 @@
-import { Stack, Text } from '@chakra-ui/react';
+import {
+  Stack,
+  StackProps,
+  Text,
+} from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
 type SectionProps = {
   children: ReactElement | ReactElement[];
   title: string;
-};
+} & StackProps;
 
 export default function Section(
   props: SectionProps
 ): ReactElement {
-  const { children, title } = props;
+  const { children, title, ...rest } = props;
   return (
     <Stack
       borderRadius="md"
@@ -20,6 +24,7 @@ export default function Section(
       paddingY="sm"
       paddingX="sm"
       gap="sm"
+      {...rest}
     >
       <Text
         fontSize="lg"
