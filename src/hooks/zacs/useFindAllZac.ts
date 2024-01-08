@@ -9,7 +9,7 @@ import FindListProps from '@/types/query/FindListProps';
 import FindListReturn from '@/types/query/FindListReturn';
 
 /**
- * @description Query for retrieving all Zac
+ * @description Récupérer les ZAC
  */
 const useFindAllZac = ({
   enabled = true,
@@ -21,7 +21,7 @@ const useFindAllZac = ({
     queryKey,
     () =>
       axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/zacs`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zacs`
       ),
     { enabled }
   );

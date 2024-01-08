@@ -1,5 +1,5 @@
 interface LabelValue {
-  label: string | number;
+  label: string | number | undefined;
   value: string | number;
 }
 

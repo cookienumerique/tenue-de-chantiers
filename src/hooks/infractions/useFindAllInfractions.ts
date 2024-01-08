@@ -21,7 +21,7 @@ const useFindAllInfractions = ({
     queryKey,
     () =>
       axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/infractions`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions`
       ),
     { enabled }
   );

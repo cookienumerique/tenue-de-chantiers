@@ -23,7 +23,7 @@ const useFindLotById = ({
     queryKey,
     async () => {
       return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/lots/${id}`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/lots/${id}`
       );
     },
     { enabled, retry: false }

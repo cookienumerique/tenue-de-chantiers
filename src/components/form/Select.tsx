@@ -4,10 +4,15 @@ import {
   FormHelperText,
   FormLabel,
   Skeleton,
+  SkeletonText,
+  Stack,
 } from '@chakra-ui/react';
 import { FieldValidation, useField } from '@formiz/core';
 import { Key, ReactElement, useEffect } from 'react';
-import { default as ReactSelect } from 'react-select';
+import {
+  ActionMeta,
+  default as ReactSelect,
+} from 'react-select';
 
 import LabelValue from '@/interfaces/LabelValue';
 
@@ -20,10 +25,14 @@ type SelectProps = {
   placeholder?: string;
   isLoading?: boolean;
   isError?: boolean;
-  onChange?: (newValue: LabelValue) => void;
+  onChange?: (
+    newValue: LabelValue,
+    meta: ActionMeta<string | number>
+  ) => void;
   required?: boolean;
   optionMessage?: string;
   validations?: FieldValidation[];
+  isDisabled?: boolean;
 };
 
 export default function Select(
@@ -41,6 +50,7 @@ export default function Select(
     required = false,
     optionMessage = 'Aucune option disponible',
     validations,
+    isDisabled = false,
   } = props;
 
   const {
@@ -51,18 +61,21 @@ export default function Select(
     isSubmitted,
   } = useField(props);
 
-  const handleChange = (newValue: LabelValue) => {
+  const handleChange = (
+    newValue: LabelValue,
+    meta: ActionMeta<string | number>
+  ) => {
     // @ts-expect-error todo
     setValue(newValue);
-    onChange(newValue);
+    onChange(newValue, meta);
   };
 
   const optionDefault = options?.find(
     (option: LabelValue) => {
       // Check if option is instance of labelValue
       return (
-        option?.value?.toString() ===
-        defaultValue?.toString()
+        option?.value?.toString().toLowerCase() ===
+        defaultValue?.toString().toLowerCase()
       );
     }
   );
@@ -75,11 +88,18 @@ export default function Select(
 
   if (isLoading)
     return (
-      <Skeleton
-        width="100%"
-        borderRadius="md"
-        height="36px"
-      />
+      <Stack>
+        <SkeletonText
+          noOfLines={1}
+          skeletonHeight={3}
+          width="10em"
+        />
+        <Skeleton
+          width="100%"
+          borderRadius="md"
+          height="36px"
+        />
+      </Stack>
     );
 
   if (isError) return <div>Error...</div>;
@@ -104,6 +124,7 @@ export default function Select(
         aria-invalid={!isValid}
         noOptionsMessage={() => optionMessage}
         validations={validations}
+        isDisabled={isDisabled}
       />
       {helperMessage ? (
         <FormHelperText>{helperMessage}</FormHelperText>

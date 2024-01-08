@@ -2,7 +2,7 @@ import { Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
-import ZacLabel from '@/app-components/text/ZacLabel';
+import CardZac from '@/app-components/card/CardZac';
 import Layout from '@/components/layout/Layout';
 import Section from '@/components/section/Section';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
@@ -64,15 +64,14 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
             title="Localisation"
             flex="1"
           >
-            <ZacLabel
-              nom={zac?.nom}
-              patrimoine={zac?.patrimoine}
+            <CardZac
+              zac={zac}
               isLoading={isLoadingZac}
               isError={isErrorZac}
             />
             <Text>COD: {lot?.cod}</Text>
             <Text>ADRESSE : {lot?.adresse}</Text>
-            <Text>LIB : {lot?.lib}</Text>
+            <Text>LIB : {lot?.libLot}</Text>
             <Text>
               DATE DE LIVRAISON : {lot?.dateLivraison}
             </Text>
@@ -83,7 +82,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
               MONTANT CHARGE FONCIERE :
               {lot?.montantChargeFonciere}
             </Text>
-            <Text>CPG : {lot?.cpg}</Text>
+            <Text>CPG : {lot?.cpg?.value}</Text>
           </Section>
 
           <Section

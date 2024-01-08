@@ -1,3 +1,4 @@
+import capitalize from '@/functions/capitalize';
 import useFindLotByZacId from '@/hooks/lots/useFindLotByZacId';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
@@ -15,14 +16,14 @@ export default function useFindLotsByZacIdOptions({
 
   const options = data?.map(
     (lot: Lot): LabelValue => ({
-      label: lot.cod,
+      label: capitalize(lot?.libLot),
       value: lot.id,
     })
   );
 
   return {
     data: options,
-    isLoading,
+    isLoading: isLoading && !!id,
     isError,
     invalidate,
   };

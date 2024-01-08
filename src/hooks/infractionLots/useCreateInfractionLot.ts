@@ -6,8 +6,8 @@ import Lot from '@/interfaces/Lot';
 import MutationProps from '@/types/query/MutationProps';
 
 export type CreateInfractionLotPayload = {
-  id_lot: number | string;
-  id_infraction: number | string;
+  lotId: number | string;
+  infractionId: number | string;
   urgence: string | number;
 };
 
@@ -28,7 +28,7 @@ const useCreateInfractionLot = (
     // @ts-expect-error todo
     (payload: CreateInfractionLotPayload) => {
       return Axios.post(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/infractions-lots`,
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions-lots`,
         payload
       );
     },

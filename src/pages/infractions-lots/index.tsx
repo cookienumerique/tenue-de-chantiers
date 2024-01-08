@@ -1,5 +1,10 @@
 import { Stack, Text } from '@chakra-ui/react';
-import { Formiz, useForm } from '@formiz/core';
+import {
+  Field,
+  Formiz,
+  useForm,
+  useFormFields,
+} from '@formiz/core';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
@@ -30,7 +35,7 @@ const CreationInfractionPage: NextPageWithLayout =
         .push(`/infractions-lots/${infractionLotId}`)
         .then((r) => r);
     };
-    const { lotId } = router?.query;
+    const { lotId: lotIdInQueryParam } = router?.query;
 
     const {
       mutate: createInfractionLot,
@@ -54,8 +59,8 @@ const CreationInfractionPage: NextPageWithLayout =
 
       // Construction de la payload
       const payload: CreateInfractionLotPayload = {
-        id_lot: optionLot?.value,
-        id_infraction: infraction?.optionLibelle?.value,
+        lotId: optionLot?.value ?? lotIdInQueryParam,
+        infractionId: infraction?.optionLibelle?.value,
         urgence: urgenceOption?.value,
       };
 
@@ -65,6 +70,13 @@ const CreationInfractionPage: NextPageWithLayout =
     const form = useForm({
       onValidSubmit: handleSubmit,
     });
+    const { optionLot } = useFormFields({
+      connect: form,
+      fields: ['optionLot'],
+    }) as { optionLot: Field<LabelValue> };
+
+    // Lot sélectionné par l'utilisateur
+    const loIdSelected = optionLot?.value?.value;
 
     // Récupération du lot
     const {
@@ -72,8 +84,8 @@ const CreationInfractionPage: NextPageWithLayout =
       isLoading: isLoadingLot,
       isError: isErrorLot,
     } = useFindLotById({
-      id: lotId,
-      enabled: !!lotId,
+      id: lotIdInQueryParam || loIdSelected,
+      enabled: !!loIdSelected || !!lotIdInQueryParam,
     });
 
     return (
@@ -84,12 +96,16 @@ const CreationInfractionPage: NextPageWithLayout =
           {/* Section localisation */}
           <SectionLocalisation
             lot={lot}
-            isLoading={isLoadingLot}
-            isError={isErrorLot}
+            zac={lot?.zac}
+            readOnly={!!lotIdInQueryParam}
+            isLoadingZac={isLoadingLot}
+            isLoadingLot={isLoadingLot}
+            isErrorLot={isErrorLot}
+            isErrorZac={isErrorLot}
           />
 
           {/* Section infraction */}
-          <SectionInfraction cpg={lot?.cpg} />
+          <SectionInfraction cpg={lot?.cpg?.value} />
 
           {/* Section documents */}
           <SectionDocuments />

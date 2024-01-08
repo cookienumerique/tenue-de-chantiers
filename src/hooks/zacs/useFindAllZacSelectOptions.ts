@@ -1,12 +1,13 @@
+import capitalize from '@/functions/capitalize';
 import useFindAllZac from '@/hooks/zacs/useFindAllZac';
 import LabelValue from '@/interfaces/LabelValue';
 import Zac from '@/interfaces/Zac';
 import FindListReturn from '@/types/query/FindListReturn';
 
 /**
- * @description Retrieve all Zac and transform them into LabelValue[]
+ * @description Convertir les ZAC en options pour les select
  */
-export default function useFindAllOptionsZac(): FindListReturn<
+export default function useFindAllZacSelectOptions(): FindListReturn<
   LabelValue[]
 > {
   const { data, isLoading, isError, invalidate } =
@@ -14,7 +15,7 @@ export default function useFindAllOptionsZac(): FindListReturn<
 
   const options = data?.map(
     (zac: Zac): LabelValue => ({
-      label: zac.nom,
+      label: capitalize(zac?.libZac),
       value: zac.id,
     })
   );

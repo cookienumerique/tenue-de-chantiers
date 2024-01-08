@@ -25,7 +25,7 @@ const useFindEnumsByEnumName = (
     queryKey,
     () => {
       return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/enums/${enumName}`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/enums/${enumName}`
       );
     }
   );
