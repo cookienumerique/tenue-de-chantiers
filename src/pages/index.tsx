@@ -1,4 +1,4 @@
-import { Stack, Text } from '@chakra-ui/react';
+import { Badge, Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
@@ -10,14 +10,24 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
   const router = useRouter();
 
   const handleRedirect = (
-    id: number
+    id: number | null
   ): Promise<boolean> => {
-    return router.push(`/infractions-lots?lotId=${id}`);
+    if (id === null)
+      return router.push(`/infractions-lots`);
+    else
+      return router.push(`/infractions-lots?lotId=${id}`);
   };
   return (
     <Stack>
       <Text as="u">
         Simulation de la sélection d&apos;un lot:
+      </Text>
+      <Text
+        cursor="pointer"
+        onClick={() => handleRedirect(null)}
+      >
+        Créer une infraction from scratch {` `}{' '}
+        <Badge colorScheme="green">Nouveau</Badge>
       </Text>
       <Text
         cursor="pointer"

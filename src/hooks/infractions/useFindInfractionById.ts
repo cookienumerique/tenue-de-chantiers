@@ -25,7 +25,7 @@ const useFindInfractionById = ({
     queryKey,
     async () => {
       return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/infractions/${id}`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions/${id}`
       );
     },
     { enabled, retry: false }

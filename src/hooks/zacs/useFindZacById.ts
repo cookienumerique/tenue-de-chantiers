@@ -23,7 +23,7 @@ const useFindZacById = ({
     queryKey,
     async () => {
       return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/zacs/${id}`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zacs/${id}`
       );
     },
     { enabled, retry: false }

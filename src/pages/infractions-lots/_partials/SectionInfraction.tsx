@@ -59,7 +59,7 @@ export default function SectionInfraction(
   if (!cpg) return <></>;
 
   return (
-    <Section title="Infraction">
+    <Section title={`Infraction (${cpg})`}>
       <Stack
         width={{ base: '100%', md: '50%', lg: '25%' }}
       >

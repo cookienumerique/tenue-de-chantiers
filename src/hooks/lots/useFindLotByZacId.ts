@@ -15,14 +15,14 @@ const useFindLotByZacId = ({
   id,
   enabled = true,
 }: FindByIdProps): FindByIdReturn<Lot[]> => {
-  const queryKey = ['lots'];
+  const queryKey = ['lots_by_zacs_id', id ?? ''];
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery(
     queryKey,
     () =>
       axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/zacs/${id}/lots`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zacs/${id}/lots`
       ),
     { enabled }
   );

@@ -2,7 +2,11 @@ import PatrimoineEnum from '@/enums/PatrimoineEnum';
 
 export default interface Zac {
   id: number;
-  nom: string;
+  libZac: string;
+  codStat: string;
+  codSect: string;
+  libAmgr: string;
+  cod: string;
   geom: string;
   patrimoine: PatrimoineEnum;
 }
