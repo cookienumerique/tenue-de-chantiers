@@ -130,3 +130,9 @@ CreationInfractionPage.getLayout = function getLayout(
 };
 
 export default CreationInfractionPage;
+
+function getInitialProps() {
+  return {};
+}
+
+CreationInfractionPage.getInitialProps = getInitialProps;

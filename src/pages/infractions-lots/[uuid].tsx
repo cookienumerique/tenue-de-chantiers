@@ -122,3 +122,10 @@ VisualisationInfractionLotPage.getLayout =
     return <Layout>{page}</Layout>;
   };
 export default VisualisationInfractionLotPage;
+
+function getInitialProps() {
+  return {};
+}
+
+VisualisationInfractionLotPage.getInitialProps =
+  getInitialProps;
