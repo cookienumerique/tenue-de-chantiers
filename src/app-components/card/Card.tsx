@@ -4,7 +4,8 @@ import {
   CardBody,
   CardHeader,
   CardProps as CardChakraProps,
-  Skeleton,
+  SkeletonText,
+  Stack,
   StackProps,
   Text,
 } from '@chakra-ui/react';
@@ -13,10 +14,12 @@ import type { ReactElement } from 'react';
 type CardProps = {
   isLoading: boolean;
   isError: boolean;
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   title: string;
   propsHeader?: StackProps;
   cardProps?: CardChakraProps;
+  icon?: ReactElement;
+  color?: string;
 } & CardChakraProps;
 
 /**
@@ -32,16 +35,10 @@ export default function Card(
     propsHeader = {},
     title,
     cardProps,
+    icon,
+    color = 'gray.700',
   } = props;
 
-  if (isLoading) {
-    return (
-      <Skeleton
-        width="100%"
-        height="100%"
-      />
-    );
-  }
   if (isError) {
     return (
       <Alert>
@@ -55,15 +52,27 @@ export default function Card(
     <CardChakra
       variant="elevated"
       borderRadius="xl"
+      border="2px solid"
+      borderColor={color}
+      backgroundColor={color}
+      height="100%"
       {...cardProps}
     >
       {title ? (
         <CardHeader
           borderTopRadius="inherit"
           fontWeight="bold"
+          color="white"
           {...propsHeader}
         >
-          <Text>{title}</Text>
+          <Stack
+            flexDir="row"
+            alignItems="center"
+            spacing="sm"
+          >
+            {icon}
+            <Text>{title}</Text>
+          </Stack>
         </CardHeader>
       ) : (
         <></>
@@ -73,7 +82,17 @@ export default function Card(
         borderBottomRadius="inherit"
         backgroundColor="gray.50"
       >
-        {children}
+        <Stack spacing="2xs">
+          {isLoading ? (
+            <SkeletonText
+              noOfLines={4}
+              spacing="xs"
+              skeletonHeight="3"
+            />
+          ) : (
+            children
+          )}
+        </Stack>
       </CardBody>
     </CardChakra>
   );

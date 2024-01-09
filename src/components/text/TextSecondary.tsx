@@ -12,7 +12,7 @@ export default function TextSecondary(
   if (!children) return <></>;
   return (
     <Text
-      fontSize="xs"
+      fontSize="sm"
       color="greyDark"
       {...rest}
     >

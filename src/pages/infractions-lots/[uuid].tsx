@@ -1,10 +1,14 @@
-import { Stack, Text } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
+import Card from '@/app-components/card/Card';
+import CardEvenement from '@/app-components/card/CardEvenement';
+import CardInfraction from '@/app-components/card/CardInfraction';
+import CardLot from '@/app-components/card/CardLot';
 import CardZac from '@/app-components/card/CardZac';
 import Layout from '@/components/layout/Layout';
-import Section from '@/components/section/Section';
+import LabelValue from '@/components/text/LabelValue';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
@@ -29,11 +33,11 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
 
     const {
       data: lot,
-      // isLoadingLot,
-      // isErrorLot,
+      isLoading: isLoadingLot,
+      isError: isErrorLot,
     } = useFindLotById({
-      id: infractionLot?.lot?.id,
-      enabled: !!infractionLot?.lot?.id,
+      id: infractionLot?.lotId,
+      enabled: !!infractionLot?.lotId,
     });
 
     const {
@@ -47,73 +51,67 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
 
     const {
       data: infraction,
-      // isLoading: isLoadingInfraction,
-      // isError: isErrorInfraction,
+      isLoading: isLoadingInfraction,
+      isError: isErrorInfraction,
     } = useFindInfractionById({
       id: infractionLot?.infraction?.id,
       enabled: !!infractionLot?.infraction?.id,
     });
 
     return (
-      <Stack gap="sm">
-        <Stack
-          display="flex"
-          flexDir={{ base: 'column', lg: 'row' }}
-        >
-          <Section
-            title="Localisation"
-            flex="1"
-          >
-            <CardZac
-              zac={zac}
-              isLoading={isLoadingZac}
-              isError={isErrorZac}
-            />
-            <Text>COD: {lot?.cod}</Text>
-            <Text>ADRESSE : {lot?.adresse}</Text>
-            <Text>LIB : {lot?.libLot}</Text>
-            <Text>
-              DATE DE LIVRAISON : {lot?.dateLivraison}
-            </Text>
-            <Text>
-              DATE DEBUT TRAVAUX : {lot?.dateDebutTravaux}
-            </Text>
-            <Text>
-              MONTANT CHARGE FONCIERE :
-              {lot?.montantChargeFonciere}
-            </Text>
-            <Text>CPG : {lot?.cpg?.value}</Text>
-          </Section>
+      <Grid
+        templateColumns="repeat(12, 1fr)"
+        gap={6}
+      >
+        <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
+          <CardZac
+            zac={zac}
+            isLoading={isLoadingZac}
+            isError={isErrorZac}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
+          <CardLot
+            lot={lot}
+            isLoading={isLoadingLot}
+            isError={isErrorLot}
+          />
+        </GridItem>
 
-          <Section
-            title="Infraction"
-            flex="1"
+        <GridItem colSpan={{ base: 12, md: 12, lg: 4 }}>
+          <Card
+            title="Autres à afficher"
+            isError={isErrorInfraction}
+            isLoading={isLoadingInfraction}
+            color="gray.600"
           >
-            <Text>
-              Date de création : {infractionLot?.date}
-            </Text>
-            <Text>
-              Statut de l&apos;infraction :
-              {infractionLot?.statut}
-            </Text>
-            <Text>
-              Urgence de l&apos;infraction :
-              {infractionLot?.urgence}
-            </Text>
-            <Text>
-              Catégorie : {infraction?.categorie}
-            </Text>
-            <Text>
-              Sous Catégorie : {infraction?.sousCategorie}
-            </Text>
-            <Text>Libellé : {infraction?.libelle}</Text>
-            <Text>Type : {infraction?.type}</Text>
-            <Text>Niveau : {infraction?.niveau}</Text>
-            <Text>Montant : {infraction?.montant}</Text>
-            <Text>CPG : {infraction?.cpg}</Text>
-          </Section>
-        </Stack>
-      </Stack>
+            <LabelValue
+              label="Urgence"
+              value={infractionLot?.urgence}
+            />
+            <LabelValue
+              label="Statut"
+              value={infractionLot?.statut}
+            />
+          </Card>
+        </GridItem>
+
+        <GridItem colSpan={{ base: 12, lg: 12, xl: 8 }}>
+          <CardInfraction
+            infraction={infraction}
+            isError={isErrorInfraction}
+            isLoading={isLoadingInfraction}
+          />
+        </GridItem>
+        <GridItem
+          colSpan={{ base: 12, md: 12, lg: 4, xl: 4 }}
+        >
+          <CardEvenement
+            isError={false}
+            isLoading={false}
+          />
+        </GridItem>
+      </Grid>
     );
   };
 
@@ -122,10 +120,3 @@ VisualisationInfractionLotPage.getLayout =
     return <Layout>{page}</Layout>;
   };
 export default VisualisationInfractionLotPage;
-
-function getInitialProps() {
-  return {};
-}
-
-VisualisationInfractionLotPage.getInitialProps =
-  getInitialProps;

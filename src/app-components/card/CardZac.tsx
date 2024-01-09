@@ -1,10 +1,8 @@
-import { Stack } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
+import { PiSquaresFourFill } from 'react-icons/pi';
 
-import BadgePatrimoine from '@/app-components/badge/BadgePatrimoine';
 import Card from '@/app-components/card/Card';
-import TextPrimary from '@/app-components/text/TextPrimary';
-import TextSecondary from '@/app-components/text/TextSecondary';
+import LabelValue from '@/components/text/LabelValue';
 import Zac from '@/interfaces/Zac';
 
 type CardZacProps = {
@@ -19,28 +17,35 @@ export default function CardZac(
   props: CardZacProps
 ): ReactElement {
   const { zac, isLoading, isError } = props;
-
   return (
     <Card
       isLoading={isLoading}
       isError={isError}
       title="ZAC"
-      propsHeader={{
-        backgroundColor: 'zac.500',
-        color: 'white',
-      }}
+      color="zac.500"
+      icon={<PiSquaresFourFill size={20} />}
     >
-      <Stack
-        display="flex"
-        flexDir="row"
-        alignItems="start"
-      >
-        <Stack spacing={0}>
-          <TextPrimary>{zac?.libZac}</TextPrimary>
-          <TextSecondary>{zac?.codSect}</TextSecondary>
-        </Stack>
-        <BadgePatrimoine patrimoine={zac?.patrimoine} />
-      </Stack>
+      <LabelValue
+        label="Libellé"
+        value={zac?.libZac}
+      />
+
+      <LabelValue
+        label="Libellé AMGR"
+        value={zac?.libAmgr}
+      />
+      <LabelValue
+        label="code sect"
+        value={zac?.codSect}
+      />
+      <LabelValue
+        label="Code stat"
+        value={zac?.codStat}
+      />
+      <LabelValue
+        label="patrimoine"
+        value="A venir"
+      />
     </Card>
   );
 }

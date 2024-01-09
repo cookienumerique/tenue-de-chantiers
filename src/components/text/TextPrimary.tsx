@@ -12,8 +12,7 @@ export default function TextPrimary(
   if (!children) return <></>;
   return (
     <Text
-      fontWeight="bold"
-      fontSize="md"
+      fontSize="sm"
       {...rest}
     >
       {children}

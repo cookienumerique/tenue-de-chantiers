@@ -6,9 +6,9 @@ export default interface Infraction {
   id: string;
   categorie: string;
   sousCategorie: string;
-  type: InfractionTypeEnum;
+  type: { name: string; value: InfractionTypeEnum };
   libelle: string;
-  niveau: InfractionNiveauEnum;
+  niveau: { name: string; value: InfractionNiveauEnum };
   montant: number;
-  cpg: CpgEnum;
+  cpg: { name: string; value: CpgEnum };
 }
