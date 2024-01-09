@@ -10,6 +10,7 @@ export default interface Lot {
   codeDept: string;
   libComm: string;
   codeSect: string;
+  livre: boolean;
   geom: string;
   description: string;
   dateLivraison: string;

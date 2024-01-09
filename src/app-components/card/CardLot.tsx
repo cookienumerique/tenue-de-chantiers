@@ -1,10 +1,9 @@
-import { Stack } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
+import { RiSquareFill } from 'react-icons/ri';
 
 import BadgeCpg from '@/app-components/badge/BadgeCpg';
 import Card from '@/app-components/card/Card';
-import TextPrimary from '@/app-components/text/TextPrimary';
-import TextSecondary from '@/app-components/text/TextSecondary';
+import LabelValue from '@/components/text/LabelValue';
 import Lot from '@/interfaces/Lot';
 
 type CardLotProps = {
@@ -20,28 +19,33 @@ export default function CardLot(
 ): ReactElement {
   const { isLoading = true, lot, isError } = props;
 
-  if (!lot) return <></>;
   return (
     <Card
       isLoading={isLoading}
       isError={isError}
       title="Lot"
-      propsHeader={{
-        backgroundColor: 'lot.500',
-        color: 'white',
-      }}
+      color="lot.600"
+      icon={<RiSquareFill size={20} />}
     >
-      <Stack
-        display="flex"
-        flexDir="row"
-        alignItems="start"
-      >
-        <Stack spacing={0}>
-          <TextPrimary>{lot?.libLot}</TextPrimary>
-          <TextSecondary>{lot?.codLot}</TextSecondary>
-        </Stack>
+      <LabelValue
+        label="Libellé"
+        value={lot?.libLot}
+      />
+      <LabelValue
+        label="Code"
+        value={lot?.codLot}
+      />
+      <LabelValue label="cpg">
         <BadgeCpg cpg={lot?.cpg?.value} />
-      </Stack>
+      </LabelValue>
+      <LabelValue
+        label="Confidentiel"
+        value={lot?.progConfidentiel}
+      />
+      <LabelValue
+        label="Livré"
+        value={lot?.livre ? 'Oui' : 'Non'}
+      />
     </Card>
   );
 }

@@ -9,10 +9,17 @@ describe('capitalize', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('should return when str is null', () => {
-    const expected = null;
+  it('should return undefined when str is null', () => {
+    const expected = undefined;
 
     const actual = capitalize(null);
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('should return string when number ', () => {
+    const expected = '5';
+
+    const actual = capitalize(5);
     expect(actual).toStrictEqual(expected);
   });
 });
