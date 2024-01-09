@@ -1,1 +1,3 @@
-npm run deploy:prod
+rm -rf node_modules
+npm install --max-old-space-size=4096
+pm2 restart tenue_de_chantiers
