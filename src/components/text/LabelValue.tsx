@@ -3,12 +3,14 @@ import type { ReactElement } from 'react';
 
 import TextPrimary from '@/components/text/TextPrimary';
 import TextSecondary from '@/components/text/TextSecondary';
-import capitalize from '@/functions/capitalize';
+import capitalizeStr from '@/functions/capitalize';
 
 type LabelValueProps = {
   label: string;
   value?: string | undefined | number;
   children?: ReactElement;
+  capitalize?: boolean;
+  amount?: boolean;
 };
 /**
  * @description Afficher une valeur avec un label
@@ -16,8 +18,16 @@ type LabelValueProps = {
 export default function LabelValue(
   props: LabelValueProps
 ): ReactElement {
-  const { children, value, label, ...rest } = props;
+  const {
+    children,
+    value,
+    label,
+    capitalize = true,
+    amount = false,
+    ...rest
+  } = props;
 
+  const val = amount ? `${value} €` : value;
   return (
     <Stack
       direction="row"
@@ -25,10 +35,12 @@ export default function LabelValue(
       {...rest}
     >
       <TextSecondary minWidth="8em">
-        {capitalize(label)}
+        {capitalizeStr(label)}
       </TextSecondary>
       {value ? (
-        <TextPrimary>{capitalize(value)}</TextPrimary>
+        <TextPrimary>
+          {capitalize ? capitalizeStr(val) : val}
+        </TextPrimary>
       ) : (
         children
       )}

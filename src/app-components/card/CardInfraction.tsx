@@ -46,6 +46,7 @@ export default function CardInfraction(
       <LabelValue
         label="montant"
         value={infraction?.montant}
+        amount
       />
       <LabelValue
         label="niveau"
