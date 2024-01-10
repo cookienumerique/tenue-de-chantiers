@@ -1,16 +1,20 @@
-import { Stack } from '@chakra-ui/react';
+import { Stack, Text } from '@chakra-ui/react';
 import {
   useFormContext,
   useFormFields,
 } from '@formiz/core';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
-import SelectInfractionByCategorie from '@/app-components/form/SelectInfractionByCategorie';
-import SelectInfractionByCpg from '@/app-components/form/SelectInfractionByCpg';
-import SelectInfractionBySousCategorie from '@/app-components/form/SelectInfractionBySousCategorie';
 import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
+import Select from '@/components/form/Select';
 import Section from '@/components/section/Section';
+import LabelValueComponent from '@/components/text/LabelValue';
 import CpgEnum from '@/enums/CpgEnum';
+import capitalize from '@/functions/capitalize';
+import uniqueOptions from '@/functions/uniqueOptions';
+import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
+import Infraction from '@/interfaces/Infraction';
+import LabelValue from '@/interfaces/LabelValue';
 
 type SectionInfractionProps = {
   cpg: CpgEnum | undefined;
@@ -23,36 +27,123 @@ export default function SectionInfraction(
 ): ReactElement {
   const { cpg } = props;
 
-  const form = useFormContext();
+  const { setValues } = useFormContext();
+  const [modeSelection, setModeSelection] = useState<
+    'libelle' | 'categorie'
+  >('libelle');
+
+  const queryParams = new URLSearchParams({
+    cpg: cpg ?? '',
+  });
+
+  /**
+   * @description Change le mode de sélection de l'infraction
+   */
+  const handleChangeModeSelection = () => {
+    setValues({
+      'infraction.optionLibelle': null,
+    });
+    setModeSelection((prev) =>
+      prev === 'libelle' ? 'categorie' : 'libelle'
+    );
+  };
+
+  const {
+    data: infractions,
+    isLoading: isLoadingInfraction,
+    isError: isErrorInfraction,
+  } = useFindAllInfractionsByCpg({
+    queryParams,
+    key: ['infraction', cpg ?? ''],
+    enabled: !!cpg,
+  });
+
   const { infraction } = useFormFields({
     fields: [
-      'infraction.categorie',
-      'infraction.sousCategorie',
+      'infraction.optionCategorie',
+      'infraction.optionSousCategorie',
+      'infraction.optionLibelle',
     ],
-    selector: (field) => field.value?.label,
+    selector: (field) => field.value,
   }) as {
     infraction: {
-      categorie: string;
-      sousCategorie: string;
+      optionCategorie: LabelValue;
+      optionSousCategorie: LabelValue;
+      optionLibelle: LabelValue;
     };
   };
 
-  const { categorie, sousCategorie } = infraction ?? {};
+  // Options pour le select des libellés
+  const optionsLibelle = infractions?.map(
+    (infraction: Infraction) => {
+      return {
+        label: capitalize(infraction?.libelle),
+        value: infraction.id,
+      };
+    }
+  );
+
+  const optionsCategorie = infractions?.map(
+    (infraction: Infraction) => {
+      return {
+        label: capitalize(infraction?.categorie),
+        value: infraction.id,
+      };
+    }
+  );
+
+  const optionsSousCategorie = infractions
+    ?.filter(
+      (infractionItem) =>
+        infractionItem?.categorie?.toLowerCase() ===
+        infraction?.optionCategorie?.label
+          ?.toString()
+          ?.toLowerCase()
+    )
+    ?.map((infraction: Infraction) => {
+      return {
+        label: capitalize(infraction?.sousCategorie),
+        value: infraction.id,
+      };
+    });
+
+  const optionsLibelleModeCategorie = infractions
+    ?.filter(
+      (infractionItem) =>
+        infractionItem?.sousCategorie?.toLowerCase() ===
+        infraction?.optionSousCategorie?.label
+          ?.toString()
+          ?.toLowerCase()
+    )
+    ?.map((infraction: Infraction) => {
+      return {
+        label: capitalize(infraction?.libelle),
+        value: infraction.id,
+      };
+    });
+
+  const infractionSelected = infractions?.find(
+    (infractionItem: Infraction) => {
+      return (
+        infractionItem.id ===
+        infraction?.optionLibelle?.value
+      );
+    }
+  );
   /**
    * @description Reset les valeurs des sous-catégories et des libellés
    */
-  const handleChangeSelectCategorie = () =>
-    form.setValues({
-      'infraction.sousCategorie': null,
-      'infraction.libelle': null,
+  const handleChangeCategorie = () =>
+    setValues({
+      'infraction.optionSousCategorie': null,
+      'infraction.optionLibelle': null,
     });
 
   /**
    * @description Reset les valeurs des libellés
    */
-  const handleChangeSelectSousCategorie = () =>
-    form.setValues({
-      'infraction.sousCategorie': null,
+  const handleChangeSousCategorie = () =>
+    setValues({
       'infraction.libelle': null,
     });
 
@@ -71,41 +162,92 @@ export default function SectionInfraction(
         <Stack
           gap="inherit"
           display={{ lg: 'flex' }}
-          flexDir={{ base: 'column', lg: 'row' }}
+          flexDir={{ base: 'column' }}
         >
-          <Stack
-            maxWidth={{ sm: '100%', lg: '50%' }}
-            flex="1"
-          >
-            {/* Select avec les catégories d'infractions */}
-            <SelectInfractionByCpg
-              cpg={cpg}
-              onChange={handleChangeSelectCategorie}
-            />
-          </Stack>
+          {modeSelection === 'libelle' ? (
+            <>
+              {infractionSelected ? (
+                <Stack>
+                  <LabelValueComponent
+                    label="categorie"
+                    value={infractionSelected?.categorie}
+                  />
+                  <LabelValueComponent
+                    label="sous categorie"
+                    value={
+                      infractionSelected?.sousCategorie
+                    }
+                  />
+                </Stack>
+              ) : (
+                <></>
+              )}
+              <Select
+                label="Libellé de l'infraction"
+                name="infraction.optionLibelle"
+                placeholder="Sélectionnez une infraction"
+                isLoading={isLoadingInfraction}
+                isError={isErrorInfraction}
+                options={uniqueOptions(optionsLibelle)}
+                required
+              />
+            </>
+          ) : (
+            <Stack>
+              <Select
+                label="Catégorie de l'infraction"
+                name="infraction.optionCategorie"
+                placeholder="Sélectionnez une catégorie"
+                isLoading={isLoadingInfraction}
+                isError={isErrorInfraction}
+                options={uniqueOptions(optionsCategorie)}
+                required
+                onChange={handleChangeCategorie}
+              />
 
-          <Stack
-            maxWidth={{ sm: '100%', lg: '50%' }}
-            flex="1"
-          >
-            {/* Liste des sous-catégorie par catégorie */}
-            <SelectInfractionByCategorie
-              categorie={categorie}
-              onChange={handleChangeSelectSousCategorie}
-            />
-          </Stack>
-        </Stack>
+              <Select
+                label="Sous catégorie de l'infraction"
+                name="infraction.optionSousCategorie"
+                placeholder="Sélectionnez une sous-catégorie"
+                isLoading={isLoadingInfraction}
+                isError={isErrorInfraction}
+                options={uniqueOptions(
+                  optionsSousCategorie
+                )}
+                required
+                isDisabled={
+                  !infraction?.optionCategorie?.value
+                }
+                onChange={handleChangeSousCategorie}
+              />
 
-        <Stack
-          gap="inherit"
-          display={{ lg: 'flex' }}
-          flexDir={{ base: 'column', lg: 'row' }}
-        >
-          {/* Liste des libellés par sous-catégorie */}
-          <SelectInfractionBySousCategorie
-            sousCategorie={sousCategorie}
-          />
-          <Stack width="100%" />
+              <Select
+                label="Libellé de l'infraction"
+                name="infraction.optionLibelle"
+                placeholder="Sélectionnez une infraction"
+                isLoading={isLoadingInfraction}
+                isError={isErrorInfraction}
+                options={uniqueOptions(
+                  optionsLibelleModeCategorie
+                )}
+                required
+                isDisabled={
+                  !infraction?.optionSousCategorie?.value
+                }
+              />
+            </Stack>
+          )}
+
+          <Text
+            as="i"
+            cursor="pointer"
+            _hover={{ textDecoration: 'underline' }}
+            onClick={handleChangeModeSelection}
+          >
+            {modeSelection === 'categorie'
+              ? "Sélectionner l'infraction par le libellé"
+              : "Sélectionner l'infraction par catégorie et sous catégorie"}
+          </Text>
         </Stack>
       </Stack>
     </Section>

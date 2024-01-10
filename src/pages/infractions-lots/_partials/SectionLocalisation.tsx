@@ -51,7 +51,7 @@ export default function SectionLocalisation(
   return (
     <Section title="Localisation">
       <Stack
-        flexDir="row"
+        flexDir={{ base: 'column', md: 'row' }}
         spacing="md"
       >
         {readOnly ? (
