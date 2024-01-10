@@ -23,16 +23,13 @@ export default function CardLot(
     <Card
       isLoading={isLoading}
       isError={isError}
-      title="Lot"
+      title={lot?.libLot ?? 'Lot'}
       color="lot.600"
       icon={<RiSquareFill size={20} />}
     >
       <LabelValue
-        label="Libellé"
-        value={lot?.libLot}
-      />
-      <LabelValue
         label="Code"
+        capitalize={false}
         value={lot?.codLot}
       />
       <LabelValue label="cpg">

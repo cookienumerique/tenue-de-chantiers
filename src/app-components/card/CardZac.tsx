@@ -21,18 +21,14 @@ export default function CardZac(
     <Card
       isLoading={isLoading}
       isError={isError}
-      title="ZAC"
+      title={zac?.libZac ?? 'Zac'}
       color="zac.500"
       icon={<PiSquaresFourFill size={20} />}
     >
       <LabelValue
-        label="Libellé"
-        value={zac?.libZac}
-      />
-
-      <LabelValue
         label="Libellé AMGR"
         value={zac?.libAmgr}
+        capitalize={false}
       />
       <LabelValue
         label="code sect"
